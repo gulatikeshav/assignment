@@ -1,29 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# E-Store – Next.js E‑commerce Demo
+
+[Live demo](https://assignment-navy-rho.vercel.app/)
+
+A responsive e‑commerce demo built with the Next.js App Router. Browse products from the FakeStore API, search and filter, view details in a modal, and manage a cart with quantity controls. Includes a mock "Add Product" form with validation.
+
+## Features
+
+- Product browsing with search and category filtering
+- Product details modal with Add to Cart CTA
+- Cart page with increment/decrement, remove, clear, and totals
+- Sticky, responsive navbar with live cart count
+- Mock Add Product form with validation (client-side only)
+- Fully responsive UI with accessible labels and sensible focus states
+
+## Tech Stack
+
+- Next.js (App Router)
+- React
+- @tanstack/react-query for data fetching/cache
+- Zustand (v4) for lightweight state management (cart, UI)
+- Tailwind CSS v4 for styling
+- React Hook Form + Zod for form validation
+
+## Live Demo
+
+- Environment: Vercel
+- URL: [https://assignment-navy-rho.vercel.app/](https://assignment-navy-rho.vercel.app/)
+
+## Project Structure
+
+- `app/layout.js` – Root layout, Providers, global styles, Navbar
+- `app/page.js` – Home: controls, product grid, product modal, mock add form
+- `app/cart/page.js` – Cart page with quantity controls and summary
+- `components/` – UI components (Navbar, Controls, ProductGrid, ProductModal, etc.)
+- `stores/` – Zustand stores (`cart.js`, `ui.js`)
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies
 
+```bash
+npm ci
+```
+
+2. Run the dev server
+
+```bash
 npm run dev
+```
 
+Open http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Production build
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+- `npm run dev` – Start dev server
+- `npm run build` – Build for production
+- `npm start` – Start production server
 
-To learn more about Next.js, take a look at the following resources:
+## State Management
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `stores/cart.js`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  - `items: CartItem[]`
+  - `addItem(product)` – Adds/increments product
+  - `decrementItem(productId)` – Decrements quantity or removes when qty reaches 0
+  - `removeItem(productId)` – Removes line
+  - `clear()` – Empties cart
 
-## Deploy on Vercel
+- `stores/ui.js`
+  - `search`, `setSearch(searchQuery)`
+  - `category`, `setCategory(categoryName)`
+  - `activeProductId`, `setActiveProductId(productId)`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Notes & Decisions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Zustand pinned to v4 to match the store API used in this project
+- Product data is fetched from the public FakeStore API at runtime
+- The Add Product form is a client-only mock; it validates input and does not persist
+- UI tuned for responsiveness (mobile → desktop) and basic accessibility
+
+## Deployment
+
+- Deployed on Vercel
+- To deploy your fork, connect the repo to Vercel and use default Next.js settings
+
+---
+
+Questions or suggestions? Open an issue or reach out.
